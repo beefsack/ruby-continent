@@ -1,0 +1,43 @@
+#!/usr/bin/ruby
+require 'yaml'
+
+data = {}
+
+# Build base data, indexed by alpha_2_code, and build other indexes at the same time
+data[:base] = {}
+data[:by_continent_code] = {}
+data[:by_alpha_3_code] = {}
+data[:by_numeric_code] = {}
+data[:continent_names] = YAML.load_file(File.join(File.dirname(__FILE__),
+  '..', 'share', 'continent_names.yml'))
+
+ARGF.each do |line|
+  matches = line.match(
+    /^([A-Z]{2})\s+([A-Z]{2}|null)\s+([A-Z]{3}|null)\s+(\d+|null)\s+(.+?)\s*$/)
+  if matches
+    c = {
+      :continent_codes => [matches[1]],
+      :alpha_2_code => matches[2],
+      :alpha_3_code => matches[3] == 'null' ? nil : matches[3],
+      :numeric_code => matches[4] == 'null' ? nil : matches[4].to_i,
+      :name => matches[5]
+    }
+    if data[:by_continent_code][c[:continent_codes].first].nil?
+      data[:by_continent_code][c[:continent_codes].first] = []
+    end
+    data[:by_continent_code][c[:continent_codes].first].push(c[:alpha_2_code])
+    if data[:base][c[:alpha_2_code]].nil?
+      data[:base][c[:alpha_2_code]] = c
+    else
+      data[:base][c[:alpha_2_code]][:continent_codes] += c[:continent_codes]
+    end
+    if c[:alpha_3_code]
+      data[:by_alpha_3_code][c[:alpha_3_code]] = c[:alpha_2_code]
+    end
+    if c[:numeric_code]
+      data[:by_numeric_code][c[:numeric_code]] = c[:alpha_2_code]
+    end
+  end
+end
+
+puts YAML.dump(data)
