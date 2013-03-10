@@ -11,8 +11,8 @@ Countries are returned as a hash in the following format:
 {
   :name => 'Turkey, Republic of',
   :continent_codes => ['EU', 'AS'],
-  :alpha_2_code => 'TR'
-  :alpha_3_code => 'TUR'
+  :alpha_2_code => 'TR',
+  :alpha_3_code => 'TUR',
   :numeric_code => 792
 }
 ```
