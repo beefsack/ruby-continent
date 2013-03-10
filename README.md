@@ -1,7 +1,7 @@
 ruby-continent
 ==============
 
-![https://travis-ci.org/beefsack/ruby-continent.png](https://travis-ci.org/beefsack/ruby-continent.png)
+![https://travis-ci.org/beefsack/ruby-continent.png](https://travis-ci.org/beefsack/ruby-continent)
 
 ruby-continent provides a mechanism to get the continent for a given country, or
 to get the countries given a continent.  Effort has been made to make the
