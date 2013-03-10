@@ -51,7 +51,7 @@ Continent codes and names are defined in `share/continent_names.yml`.
 There is a helper method to get the continent name from the code, as codes are
 used inside the country hashes.
 
-```
+```ruby
 Continent.continent_name('OC')
 ```
 
